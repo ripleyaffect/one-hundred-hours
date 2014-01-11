@@ -2,58 +2,80 @@
 <html ng-app="user1">
 
 	<head>
+		<meta charset="utf-8">
 		<script src="http://code.angularjs.org/1.2.7/angular.min.js"></script>
-		<script src="user1.js"></script>
+		<script src="assets/javascript/user1.js"></script>
 		<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="assets/stylesheets/style.css">
 	</head>
 
 	<body>
-		<div class="container text-center" ng-controller="UserController as user">
+		<div class="text-center" ng-controller="UserController as user">
 
-			<h1>One Hundred Hours <small>Manage your projects, achieve anything.</small></h1>
-
-			<div class="lead">
-				What's your name?<br>
-				<input type="text" ng-model="user.username" required>
+			<div class="title-section">
+				<h1 class="header-no-bottom">One Hundred Hours</h1>
+				<div class="header-description lead">Manage your projects, achieve anything</div>
 			</div>
 
-			<p class="lead">{{user.welcome()}}</p>
+			<div class="intro-section">
+				<div class="lead">
+					What's your name?<br>
+					<input type="text" ng-model="user.username" required>
+				</div>
+				<p class="lead">{{user.welcome()}}</p>
+			</div>
 
+			<div class="new-project-section">
 			<h2>Create a new project</h2>
-			<div>
-				<strong>Project Name:</strong>
 				<div>
-					<input type="text" ng-model="user.projectName" required>
+					<input type="text" size=30 placeholder="Project name"ng-model="user.projectName" required>
+				</div>
+				<div>
+					<textarea cols=32 placeholder="Short project description" ng-model="user.projectDescription" required></textarea>
 				</div>
 				<strong>Days to complete the project:</strong>
 				<div>
 					<input type="number" ng-model="user.timeLimit">
 				</div>
-				<button class="btn btn-success" ng-click="user.createProject()">Create</button>
+				<button class="btn btn-success create-button" ng-click="user.createProject()">Create</button>
 			</div>
 
-			<h2>Projects ({{user.projects.length}})</h2>
-			Click on a project to add time to it
-			<div ng-repeat="project in user.projects">
-				<h3>Project Name: {{user.getProjectName(project)}}</h3>
-				<div>Percent Complete: {{user.percentComplete(project)}}%</div>
-				<div>Percent Time Elapsed: {{user.percentTimeElapsed(project)}}%</div>
-				<div ng-show='project.visible'>
-					<button class="btn btn-primary" ng-click="user.toggleEditProject(project)">Hide</button>
-					<div>
-						Hours: <input type="number" ng-model="user.hours" required>
+			<div class="projects-section">
+				<h2>Projects ({{user.projects.length}})</h2>
+				<div class="lead">Click on a project's progress bar to add time to it or delete it</div>
+				<div class="project" ng-repeat="project in user.projects">
+					<h3 class="header-no-bottom">{{user.getProjectName(project)}}</h3>
+					<div class="header-description"><h3 class="header-description"><small>{{user.getProjectDescription(project)}}</small></h3></div>
+						<div class="progress-border">
+							<div class="progress-containter btn btn-danger" ng-click="user.toggleEditProject(project)">
+								<div class="progress-bar" style={{user.setProgressWidth(project)}}></div>
+								<div class="time-bar" style={{user.setTimeWidth(project)}}></div>
+								<div class="percent-complete-text">{{user.percentComplete(project)}}% Complete</div>
+							</div>
+						</div>
+					<div class="edit-project-form" ng-show="project.visible">
+						<div>
+							<strong>Hrs:</strong> <input type="number" size="5" ng-model="user.hours" required>
+						</div>
+						<div>
+							<strong>Mins:</strong> <input type="number" size="5" ng-model="user.minutes" required>
+						</div>
+						<button class="btn btn-primary" ng-click="user.addTime(project)">Add Time</button>
+						<button class="btn btn-danger" ng-click="user.deleteProject(project)">Delete Project</button>
 					</div>
-					<div>
-						Minutes: <input type="number" ng-model="user.minutes" required>
-					</div>
-					<button class="btn btn-primary" ng-click="user.addTime(project)">Add Time</button>
-					<button class="btn btn-danger" ng-click="user.deleteProject(project)">Delete Project</button>
-				</div>	
-				<button class="btn btn-primary" ng-click="user.toggleEditProject(project)" ng-hide="project.visible">Edit</button>
+				</div>
 			</div>
+
+			<footer class="footer-section">
+			This page © Thomas Peterson
+				<ul class="social">
+					<li><a href="http://www.twitter.com/ripleyaffect"><img src="assets/images/twitter.png"></img></a></li>
+					<li><a href="http://www.linkedin.com/profile/view?id=178184513"><img src="assets/images/linkedin.png"></img></a></li>
+					<li><a href="http://www.github.com/ripleyaffect"><img src="assets/images/github.png"></img></a></li>
+				</ul>
+			</footer>
 
 		</div>
-
 	</body>
 
 </html>

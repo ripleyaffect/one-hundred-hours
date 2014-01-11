@@ -1,0 +1,18 @@
+{
+  "name": "angular_hours",
+  "version": "0.0.0",
+  "authors": [
+    "ripleyaffect <t.ripley.peterson@gmail.com>"
+  ],
+  "description": "an app for tracking 100-hour projects",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

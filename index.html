@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="user1">
+
+	<head>
+		<script src="http://code.angularjs.org/1.2.7/angular.min.js"></script>
+		<script src="user1.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+	</head>
+
+	<body>
+		<div class="container text-center" ng-controller="UserController as user">
+
+			<h1>One Hundred Hours <small>Manage your projects, achieve anything.</small></h1>
+
+			<div class="lead">
+				What's your name?<br>
+				<input type="text" ng-model="user.username" required>
+			</div>
+
+			<p class="lead">{{user.welcome()}}</p>
+
+			<h2>Create a new project</h2>
+			<div>
+				<strong>Project Name:</strong>
+				<div>
+					<input type="text" ng-model="user.projectName" required>
+				</div>
+				<strong>Days to complete the project:</strong>
+				<div>
+					<input type="number" ng-model="user.timeLimit">
+				</div>
+				<button class="btn btn-success" ng-click="user.createProject()">Create</button>
+			</div>
+
+			<h2>Projects ({{user.projects.length}})</h2>
+			Click on a project to add time to it
+			<div ng-repeat="project in user.projects">
+				<h3>Project Name: {{user.getProjectName(project)}}</h3>
+				<div>Percent Complete: {{user.percentComplete(project)}}%</div>
+				<div>Percent Time Elapsed: {{user.percentTimeElapsed(project)}}%</div>
+				<div class="visible-{{project.visble}}">
+					<div>
+						Hours: <input type="number" ng-model="user.hours" required>
+					</div>
+					<div>
+						Minutes: <input type="number" ng-model="user.minutes" required>
+					</div>
+					<button class="btn btn-primary" ng-click="user.addTime(project)">Add Time</button>
+					<button class="btn btn-danger" ng-click="user.deleteProject(project)">Delete Project</button>
+				</div>	
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

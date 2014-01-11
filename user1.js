@@ -35,7 +35,6 @@ angular.module('user1', [])
       this.projects.push({name: this.projectName, description: this.projectDescription, started: date, hours: 0.0, timeLimit: this.timeLimit, visible: false});
       this.projectName = "";
       this.projectDescription = "";
-      this.timeLimit = 20;
     };
 
     this.percentComplete = function percentComplete(project) {
@@ -68,8 +67,6 @@ angular.module('user1', [])
           entry.visible = false;
         }
       });
-      this.hours = 0;
-      this.minutes = 0;
       project.visible = !project.visible;
     };
 
@@ -87,8 +84,6 @@ angular.module('user1', [])
       if(project.hours > 100) {
         project.hours = 100;
       }
-      this.hours = 0;
-      this.minutes = 0;
     };
 
     this.deleteProject = function deleteProject(project) {

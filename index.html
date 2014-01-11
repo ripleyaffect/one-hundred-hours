@@ -14,51 +14,60 @@
 
 			<div class="title-section">
 				<h1 class="header-no-bottom">One Hundred Hours</h1>
-				<div class="header-description lead">Manage your projects, achieve anything</div>
+				<h1 class="header-description"><small>Manage your projects, achieve anything</small></h1>
 			</div>
 
-			<div class="intro-section">
-				<div class="lead">
-					What's your name?<br>
-					<input type="text" ng-model="user.username" required>
-				</div>
-				<p class="lead">{{user.welcome()}}</p>
+			<div class="intro-section lead">
+				<p>One Hundred Hours is designed to help manage hundred hour projects. It was inspired by a <a href="http://www.karenx.com/blog/how-to-get-a-job-after-youve-been-rejected">post on Karen Cheng's blog</a>. To use One Hundred Hours, create a new project and start clocking time on it!</p>
+				<p class="text-danger">Warning: One Hundred Hours is in development and does not yet maintain projects between sessions!</p>
 			</div>
 
 			<div class="new-project-section">
-			<h2>Create a new project</h2>
-				<div>
-					<input type="text" size=30 placeholder="Project name"ng-model="user.projectName" required>
-				</div>
-				<div>
-					<textarea cols=32 placeholder="Short project description" ng-model="user.projectDescription" required></textarea>
-				</div>
-				<strong>Days to complete the project:</strong>
-				<div>
-					<input type="number" ng-model="user.timeLimit">
-				</div>
-				<button class="btn btn-success create-button" ng-click="user.createProject()">Create</button>
+				<h2>Create a new project</h2>
+				<form role="form">
+					<div class="form-group">
+						<label for="new-project-name">Project Name</label>
+						<input class="form-control" id="new-project-name" type="text" placeholder="Project name" ng-model="user.projectName">
+					</div>
+					<div class="form-group">
+						<label for="new-project-description">Project Description</label>
+						<textarea class="form-control" id="new-project-description" placeholder="Short project description" ng-model="user.projectDescription"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="new-project-time">Days to Complete Project</label>
+						<input class="form-control" id="new-project-time" type="number" ng-model="user.timeLimit">
+						<span class="help-block">({{(100 / user.timeLimit).toFixed(2)}} hours per day)</span>
+					</div>
+					<button class="btn btn-success create-button" ng-click="user.createProject()">Create</button>
+				</form>
 			</div>
 
 			<div class="projects-section">
 				<h2>Projects ({{user.projects.length}})</h2>
-				<div class="lead">Click on a project's progress bar to add time to it or delete it</div>
+				<div class="lead">
+					Click on a project's progress bar to record time spent on it or delete it. <br>
+					The green represents your progress towards 100 hours, the blue represents your time limit.
+				</div>
 				<div class="project" ng-repeat="project in user.projects">
 					<h3 class="header-no-bottom">{{user.getProjectName(project)}}</h3>
-					<div class="header-description"><h3 class="header-description"><small>{{user.getProjectDescription(project)}}</small></h3></div>
-						<div class="progress-border">
-							<div class="progress-containter btn btn-danger" ng-click="user.toggleEditProject(project)">
-								<div class="progress-bar" style={{user.setProgressWidth(project)}}></div>
-								<div class="time-bar" style={{user.setTimeWidth(project)}}></div>
-								<div class="percent-complete-text">{{user.percentComplete(project)}}% Complete</div>
-							</div>
+					<div class="header-description">
+						<h3 class="header-description"><small>{{user.getProjectDescription(project)}}</small></h3>
+					</div>
+					<div class="progress-border">
+						<div class="progress-containter btn btn-danger" ng-click="user.toggleEditProject(project)">
+							<div class="progress-bar" style={{user.setProgressWidth(project)}}></div>
+							<div class="time-bar" style={{user.setTimeWidth(project)}}></div>
+							<div class="percent-complete-text">{{user.percentComplete(project)}}% Complete</div>
 						</div>
+					</div>
 					<div class="edit-project-form" ng-show="project.visible">
-						<div>
-							<strong>Hrs:</strong> <input type="number" size="5" ng-model="user.hours" required>
+						<div class="form-group">
+							<label for="project-hours">Hrs</label>
+							<input class="form-control" id="project-hours" type="number" ng-model="user.hours" required>
 						</div>
-						<div>
-							<strong>Mins:</strong> <input type="number" size="5" ng-model="user.minutes" required>
+						<div class="form-group">
+							<label for="project-minutes">Mins</label>
+							<input class="form-control" id="project-minutes" type="number" ng-model="user.minutes" required>
 						</div>
 						<button class="btn btn-primary" ng-click="user.addTime(project)">Add Time</button>
 						<button class="btn btn-danger" ng-click="user.deleteProject(project)">Delete Project</button>

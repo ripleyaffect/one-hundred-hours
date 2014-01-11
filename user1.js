@@ -47,7 +47,14 @@ angular.module('user1', [])
       return percent
     };
 
+    this.toggleEditProject = function toggleEditProject(project) {
+      project.visible = !project.visible;
+    };
+
     this.addTime = function addTime(project) {
+      if(isNaN(this.hours + this.minutes)) {
+        return;
+      };
       project.hours = project.hours + (this.hours + (this.minutes / 60));
     };
 

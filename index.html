@@ -38,7 +38,8 @@
 				<h3>Project Name: {{user.getProjectName(project)}}</h3>
 				<div>Percent Complete: {{user.percentComplete(project)}}%</div>
 				<div>Percent Time Elapsed: {{user.percentTimeElapsed(project)}}%</div>
-				<div class="visible-{{project.visble}}">
+				<div ng-show=project.visible>
+					<button class="btn btn-primary" ng-click="user.toggleEditProject(project)">Hide</button>
 					<div>
 						Hours: <input type="number" ng-model="user.hours" required>
 					</div>
@@ -48,6 +49,7 @@
 					<button class="btn btn-primary" ng-click="user.addTime(project)">Add Time</button>
 					<button class="btn btn-danger" ng-click="user.deleteProject(project)">Delete Project</button>
 				</div>	
+				<button class="btn btn-primary" ng-click="user.toggleEditProject(project)" ng-hide=project.visible>Edit</button>
 			</div>
 
 		</div>

@@ -54,11 +54,17 @@ angular.module('user1', [])
 
     this.setProgressWidth = function setProgressWidth(project) {
       element = "width:" + project.hours + "%";
+      if(project.hours > 99) {
+        element = element + "; border-bottom-right-radius: 4px; border-top-right-radius: 4px;";
+      };
       return element;
     }
 
     this.setTimeWidth = function setTimeWidth(project) {
       element = "width:" + this.percentTimeElapsed(project) + "%";
+      if(this.percentTimeElapsed(project) > 99) {
+        element = element + "; border-bottom-right-radius: 4px;";
+      };
       return element;
     }
 
